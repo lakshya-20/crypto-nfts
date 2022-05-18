@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend server for crypto nft",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakshya-20/crypto-nfts.git"
+  },
+  "author": "Lakshya Bansal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lakshya-20/crypto-nfts/issues"
+  },
+  "homepage": "https://github.com/lakshya-20/crypto-nfts#readme"
+}
