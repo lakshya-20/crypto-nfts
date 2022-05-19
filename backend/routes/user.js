@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const ethUtil = require('ethereumjs-util');
 
 const User = require('../models/user');
 const router = express.Router();
@@ -27,7 +28,7 @@ router.get('/:public_address/nonce', async (req, res) => {
 // @route   Get api/user/:public_address/signature
 // @desc    returns jwt token if authentic user
 // @access  Public
-router.get('/:public_address/signature', async (req, res) => {
+router.post('/:public_address/signature', async (req, res) => {
   try{
     const public_address = req.params.public_address;
     const user = await User.findOne({public_address});
@@ -61,7 +62,7 @@ router.get('/:public_address/signature', async (req, res) => {
 
         res.status(200).json({
           success: true,
-          token: `Bearer ${token}`,
+          token: token,
           user: user,
           msg: "You are now logged in."
         });
