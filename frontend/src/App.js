@@ -1,23 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Main from './Layouts/Main';
+import SideNav from './Layouts/SideNav';
+import TopNav from './Layouts/TopNav';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className = "row d-flex">
+      <div className="col-2 border">
+        <SideNav/>
+      </div>
+      <div className="col-10 border">
+        <div className='col-12'>
+          <TopNav/>
+        </div>
+        <div className='col-12'>
+          <Main/>
+        </div>
+      </div>
     </div>
   );
 }
