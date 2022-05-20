@@ -31,7 +31,7 @@ export const authReducuer = (state, action) => {
         errMess: null, 
         isLoggedin: true, 
         address: action.payload.address, 
-        formattedAddress: action.payload.address.substring(0,6) + "..." + action.payload.address.substring(action.payload.address.length-4),
+        formattedAddress: action.payload.formattedAddress
       }
     case ActionTypes.AUTH_STATE_LOGOUT:
       return {
@@ -41,9 +41,15 @@ export const authReducuer = (state, action) => {
         isLoggedin: false, 
         address: null, 
         formattedAddress: null, 
+        user: null, 
         coinContract: null, 
         silverCoins: 0, 
         goldCoins: 0,
+      }
+    case ActionTypes.AUTH_STATE_SET_USER:
+      return {
+        ...state,
+        user: action.payload.user,
       }
     case ActionTypes.AUTH_STATE_ENABLE_WEB3:
       return {

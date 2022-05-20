@@ -14,11 +14,11 @@ function App() {
               <SideNav/>
             </div>
           </div>
-          <div className="col-10 border">
+          <div className="col-10">
             <div className='col-12 sticky-top'>
               <TopNav/>
             </div>
-            <div className='col-12 border'>
+            <div className='col-12'>
               <Main/>
             </div>
           </div>

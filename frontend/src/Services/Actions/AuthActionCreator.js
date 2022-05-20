@@ -13,13 +13,18 @@ export const authStateDisableWeb3 = () => ({
   type: ActionTypes.AUTH_STATE_DISABLE_WEB3
 })
 
-export const authStateLogin = (address) => ({
+export const authStateLogin = (address, formattedAddress) => ({
   type: ActionTypes.AUTH_STATE_LOGIN,
-  payload: { address }
+  payload: { address, formattedAddress }
 })
 
 export const authStateLogout = () => ({
   type: ActionTypes.AUTH_STATE_LOGOUT
+})
+
+export const authStateSetUser = (user) => ({
+  type: ActionTypes.AUTH_STATE_SET_USER,
+  payload: { user }
 })
 
 export const authStateCoinContract  = (contract) => ({

@@ -1,0 +1,24 @@
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #e6e6e6;
+  --tertiary-color: #c191d4;
+  --bg1-color: #86C232;
+  --highlighter-color: #daa520;
+}
+
+.top-nav-wrapper {
+  background-color: black;
+  color: var(--primary-color);
+  padding: 50px 30px;
+}
+.greeting {
+  color: var(--primary-color);
+  font-size: xx-large;
+  font-weight: bold;
+}
+.top-nav-auth-button {
+  background-color: var(--bg1-color);
+  color: var(--primary-color);
+  padding: 0px 10px;
+  border-radius: 20px;
+}

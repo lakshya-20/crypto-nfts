@@ -2,12 +2,12 @@
   --primary-color: #ffffff;
   --secondary-color: #e6e6e6;
   --tertiary-color: #c191d4;
-  --bg1-color: #cc0088;
+  --bg1-color: #9D50BB;
   --highlighter-color: #daa520;
 }
 
 .wrapper {
-  background-color: #363062;
+  background-color: black;
   color: var(--primary-color);
   padding: 30px;
   height: 100vh;

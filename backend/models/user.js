@@ -5,6 +5,15 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  name: {
+    type: String,
+  },
+  img: {
+    type: String,
+  },
+  isRegistered: {
+    type: Boolean,
+  },
   nonce: {
     type: Number,
     default: Math.floor(Math.random() * 1000000)

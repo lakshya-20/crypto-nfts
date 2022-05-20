@@ -14,7 +14,8 @@ router.get('/:public_address/nonce', async (req, res) => {
     let user = await User.findOne({public_address});
     if (!user){
       user = new User({
-        public_address
+        public_address,
+        isRegistered: false
       });
       await user.save();
     }
@@ -59,7 +60,7 @@ router.post('/:public_address/signature', async (req, res) => {
           _id: user._id,
           address: user.public_address
         }, "JWT_SECRET", {expiresIn: '6h'});
-
+        user.nonce = null;
         res.status(200).json({
           success: true,
           token: token,
@@ -75,7 +76,56 @@ router.post('/:public_address/signature', async (req, res) => {
     else {
       res.status(401).json({message: "User does not exists"});
     }
+  } catch(err) {
+    console.log(err.message);
+    res.status(500).json({message: "Server error"});
+  }
+})
 
+// @route   Get api/user/:public_address/register
+// @desc    register user
+// @access  Public
+router.post('/:public_address/register', async (req, res) => {
+  try{
+    const public_address = req.params.public_address;
+    const {name, img} = req.body;
+    const user = await User.findOne({public_address});
+    if(user){
+      user.isRegistered = true;
+      user.name = name;
+      user.img = img;
+      await user.save();
+      res.status(200).json({
+        success: true,
+        user: user,
+        msg: "User registered successfully"
+      });
+    }
+    else {
+      res.status(401).json({message: "User does not exists"});
+    }
+  } catch(err) {
+    console.log(err.message);
+    res.status(500).json({message: "Server error"});
+  }
+})
+
+// @route   Get api/user/:public_address
+// @desc    returns user
+// @access  Public
+router.get('/:public_address', async (req, res) => {
+  try{
+    const public_address = req.params.public_address;
+    const user = await User.findOne({public_address}, {fields: {nonce: 0}});
+    if(user){
+      res.status(200).json({
+        success: true,
+        user: user
+      });
+    }
+    else {
+      res.status(401).json({message: "User does not exists"});
+    }
   } catch(err) {
     console.log(err.message);
     res.status(500).json({message: "Server error"});

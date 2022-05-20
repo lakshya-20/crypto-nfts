@@ -47,13 +47,17 @@ const SideNav = () => {
       <div className="user-wrapper">
         <div className="d-flex align-items-center justify-content-between">
           <img 
-            src="https://res.cloudinary.com/dstmsi8qv/image/upload/v1589896899/c1lfv7nmmjva48wia4a7.png" 
+            src={ authState.user && authState.user.isRegistered?
+              authState.user.img
+              :
+              "https://res.cloudinary.com/dstmsi8qv/image/upload/v1589896899/c1lfv7nmmjva48wia4a7.png"
+            }
             width="50px"
             className="user-image"
           />
           <span>
             <span className="user-name">
-              Lakshya Bansal
+            {authState.user && authState.user.isRegistered? authState.user.name : "User"}
             </span>
             <br/>
             <span className="user-label">

@@ -1,36 +1,57 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Services/Contexts/AuthContext";
-import { create } from 'ipfs-http-client'
+import styles from '../../Assets/Styles/TopNav.Layout.css';
+import RegisterUser from "../../Components/Modals/RegisterUser";
 
 const TopNav = () => {
-
   const { authState, login, logout } = useContext(AuthContext);
-  const ipfs_client = create({ url: "https://ipfs.infura.io:5001/api/v0" });
-  useEffect(() => {
-    (async () => {
-      const response = await ipfs_client.add(JSON.stringify({
-        "name": "John"
-      }))
-      console.log(response);
-      const response2 = await fetch("https://ipfs.io/ipfs/QmZv3SJpSUbb56tDSzc6pvVrc4uXpKEPexj5j5FDr52Jm5");
-      if(!response2.ok)
-      throw new Error(response2.statusText);
+  const [greeting, setGreeting] = useState("");
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
-      const json = await response2.json();
-      console.log(json)
-    })();
-    console.log(authState)
-  }, [])
+  useEffect(() => {
+    const date = new Date();
+    const hour = date.getHours();
+    if(hour >= 0 && hour < 12){
+      setGreeting("Good Morning");
+    } else if(hour >= 12 && hour < 18){
+      setGreeting("Good Afternoon");
+    } else if(hour >= 18 && hour < 24){
+      setGreeting("Good Evening");
+    }
+    console.log(authState);
+  },[])
+
+  useEffect(() => {
+    setIsRegisterModalOpen(authState.isLoggedin && authState.user.isRegistered === false);
+  }, [authState])
+
   return (
-    <div>
-      Top Nav Layout
-      <br/>
-      {authState.isLoggedin?
-        <button onClick={logout}>Logout</button>
-      :
-        <button onClick={login}>Login</button>
-      }
-      <br/>
+    <div className="top-nav-wrapper">
+      <div className="d-flex align-items-center justify-content-between">
+        <div>
+          <span className="greeting">{greeting}, {authState.user && authState.user.isRegistered? authState.user.name : ""}</span>
+        </div>
+        <div>
+          {authState.isLoggedin?
+            <span 
+              onClick={logout}
+              type="button"
+              className="top-nav-auth-button"
+            >
+              Logout
+            </span>
+          :
+            <span 
+              onClick={login}
+              type="button"
+              className="top-nav-auth-button"
+            >
+              Login
+            </span>
+          }
+        </div>
+      </div>
+      <RegisterUser isModalOpen={isRegisterModalOpen}/>
     </div>
   )
 }

@@ -10,6 +10,7 @@ contract Coin is ERC1155 {
   uint256[] public _tokenIds;
   mapping(uint256 => address) _tokenOwners;
   mapping(uint256 => string) _tokenURIs;
+  mapping(address => uint[]) _ownerTokens;
 
   constructor() ERC1155(""){}
 
@@ -21,6 +22,7 @@ contract Coin is ERC1155 {
     _mint(msg.sender, _tokenId, 1, "");
     _tokenIds.push(_tokenId);
     _tokenOwners[_tokenId] = msg.sender;
+    _ownerTokens[msg.sender].push(_tokenId);
     _setURI(_tokenId, _uri);
     return true;
   }

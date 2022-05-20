@@ -1,10 +1,11 @@
 import { createContext, useEffect, useReducer } from "react";
-import { authStateCoinContract, authStateDisableWeb3, authStateEnableWeb3, authStateFailed, authStateLogin, authStateLogout, authStateSetCoins } from "../Actions/AuthActionCreator";
+import { authStateCoinContract, authStateDisableWeb3, authStateEnableWeb3, authStateFailed, authStateLogin, authStateLogout, authStateSetCoins, authStateSetUser } from "../Actions/AuthActionCreator";
 import { authReducuer } from "../Reducers/AuthReducer";
 import Web3 from "web3";
 import Toast from "../../Components/Toast";
 import axios from 'axios';
 import CoinContract from '../../Assets/ABI/Coin.json';
+import { formattedAddress } from "../Utils/user";
 
 export const AuthContext = createContext();
 export const AuthContextProvider = ({children}) => {
@@ -15,6 +16,7 @@ export const AuthContextProvider = ({children}) => {
     isLoggedin: false,
     address: null,
     formattedAddress: null,
+    user: null,
     coinContract: null, 
     silverCoins: 0, 
     goldCoins: 0
@@ -65,7 +67,8 @@ export const AuthContextProvider = ({children}) => {
         );
         response = await axios.post(`http://localhost:5000/api/user/${current_account}/signature`, {signature});
         localStorage.setItem('jwt', response.data.token);
-        authDispatch(authStateLogin(current_account, 0, 0));
+        authDispatch(authStateLogin(current_account, formattedAddress(current_account)));
+        authDispatch(authStateSetUser(response.data.user));
         Toast("success", "Successfully Logged in!")
       } catch(err) {
         Toast("error", err.message);
@@ -83,8 +86,20 @@ export const AuthContextProvider = ({children}) => {
     }
   }
 
+  const register = async (name, img) => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/user/${authState.address}/register`, {
+        name,
+        img
+      });
+      authDispatch(authStateSetUser(response.data.user));
+    } catch(err){
+      Toast("error", err.message);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{authState, authDispatch, login, logout}}>
+    <AuthContext.Provider value={{authState, authDispatch, login, logout, register}}>
       {children}
     </AuthContext.Provider>
   )
