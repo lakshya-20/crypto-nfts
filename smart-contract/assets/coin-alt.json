@@ -1,0 +1,9 @@
+{
+  "name": "Alt NFT",
+  "description": "Alt NFT...",
+  "image": "",
+  "price": {
+    "0": 1,
+    "1": 10
+  }
+}

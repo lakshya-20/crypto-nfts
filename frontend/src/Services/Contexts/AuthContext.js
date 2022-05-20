@@ -1,9 +1,10 @@
 import { createContext, useEffect, useReducer } from "react";
-import { authStateDisableWeb3, authStateEnableWeb3, authStateFailed, authStateLogin, authStateLogout } from "../Actions/AuthActionCreator";
+import { authStateCoinContract, authStateDisableWeb3, authStateEnableWeb3, authStateFailed, authStateLogin, authStateLogout } from "../Actions/AuthActionCreator";
 import { authReducuer } from "../Reducers/AuthReducer";
 import Web3 from "web3";
 import Toast from "../../Components/Toast";
-const axios = require('axios');
+import axios from 'axios';
+import CoinContract from '../../Assets/ABI/Coin.json';
 
 export const AuthContext = createContext();
 export const AuthContextProvider = ({children}) => {
@@ -14,6 +15,7 @@ export const AuthContextProvider = ({children}) => {
     isLoggedin: false,
     address: null,
     formattedAddress: null,
+    coinContract: null, 
     silverCoins: 0, 
     goldCoins: 0
   })
@@ -36,6 +38,16 @@ export const AuthContextProvider = ({children}) => {
       throw new Error(errMess);
     }
   }, [])
+
+  useEffect(() => {
+    if(authState.isLoggedin) {
+      (async () => {
+        const networkId = await window.web3.eth.net.getId();
+        const coinContract = new window.web3.eth.Contract(CoinContract.abi, CoinContract.networks[networkId].address);
+        authDispatch(authStateCoinContract(coinContract));
+      })();
+    }
+  }, [authState.isLoggedin])
 
   const login = async () => {
     if(authState.isWeb3Enabled){

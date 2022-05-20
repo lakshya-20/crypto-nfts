@@ -32,8 +32,6 @@ export const authReducuer = (state, action) => {
         isLoggedin: true, 
         address: action.payload.address, 
         formattedAddress: action.payload.address.substring(0,6) + "..." + action.payload.address.substring(action.payload.address.length-4),
-        silverCoins: action.payload.silverCoins,
-        goldCoins: action.payload.goldCoins,
       }
     case ActionTypes.AUTH_STATE_LOGOUT:
       return {
@@ -43,6 +41,7 @@ export const authReducuer = (state, action) => {
         isLoggedin: false, 
         address: null, 
         formattedAddress: null, 
+        coinContract: null, 
         silverCoins: 0, 
         goldCoins: 0,
       }
@@ -56,6 +55,20 @@ export const authReducuer = (state, action) => {
         ...state, 
         isWeb3Enabled: false
       }
+
+    case ActionTypes.AUTH_STATE_COIN_CONTRACT:
+      return {
+        ...state,
+        coinContract: action.payload.contract
+      }
+
+    case ActionTypes.AUTH_STATE_SET_COINS:
+      return {
+        ...state,
+        silverCoins: action.payload.silverCoins,
+        goldCoins: action.payload.goldCoins
+      }
+
     case ActionTypes.AUTH_STATE_INCREASE_SILVER_COIN:
       return {
         ...state,

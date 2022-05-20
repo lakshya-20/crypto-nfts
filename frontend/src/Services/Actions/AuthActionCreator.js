@@ -13,13 +13,23 @@ export const authStateDisableWeb3 = () => ({
   type: ActionTypes.AUTH_STATE_DISABLE_WEB3
 })
 
-export const authStateLogin = (address, silverCoins, goldCoins) => ({
+export const authStateLogin = (address) => ({
   type: ActionTypes.AUTH_STATE_LOGIN,
-  payload: { address, silverCoins, goldCoins }
+  payload: { address }
 })
 
 export const authStateLogout = () => ({
   type: ActionTypes.AUTH_STATE_LOGOUT
+})
+
+export const authStateCoinContract  = (contract) => ({
+  type: ActionTypes.AUTH_STATE_COIN_CONTRACT,
+  payload: { contract }
+})
+
+export const authStateSetCoins = (silverCoins, goldCoins) => ({
+  type: ActionTypes.AUTH_STATE_SET_COINS,
+  payload: { silverCoins, goldCoins }
 })
 
 export const authStateIncreaseSilverCoin = (amount) => ({
