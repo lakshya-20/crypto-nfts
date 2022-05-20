@@ -1,0 +1,73 @@
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #e6e6e6;
+  --tertiary-color: #c191d4;
+  --bg1-color: #cc0088;
+  --highlighter-color: #daa520;
+}
+
+.wrapper {
+  background-color: #363062;
+  color: var(--primary-color);
+  padding: 30px;
+  height: 100vh;
+}
+
+.user-wrapper {}
+.user-image{
+  border-radius: 100px;
+}
+.user-name {
+  color: var(--primary-color);
+  font-size: large;
+  font-weight: bold;
+}
+.user-label {
+  color: var(--secondary-color);
+}
+.user-badge {
+  color: var(--highlighter-color);
+}
+
+
+
+.balance-wrapper {
+  margin-top: 30px;
+  padding: 10px;
+  text-align: center;
+}
+.balance-card {
+  /* background-color: var(--tertiary-color); */
+  background: #9D50BB;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #6E48AA, #9D50BB);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #6E48AA, #9D50BB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 30px;
+  padding: 20px;
+}
+.balance-heading {
+  color: var(--secondary-color);
+}
+.balance-amount {
+  color: var(--primary-color);
+  font-size: xx-large;
+  font-weight: bold;  
+}
+.balance-title {
+  color: var(--secondary-color);
+}
+.balance-icon{
+  font-size: xx-large;
+}
+.balance-silver-icon {
+  color: silver;
+}
+.balance-gold-icon {
+  color: gold;
+}
+
+.top-up-wrapper {
+  padding: 15px;
+}
+.top-up-heading {
+  color: var(--secondary-color);
+}
