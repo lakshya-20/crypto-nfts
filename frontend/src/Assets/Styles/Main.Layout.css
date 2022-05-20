@@ -17,3 +17,9 @@
   font-size: xx-large;
   font-weight: bold;
 }
+
+.all-nfts-heading {
+  color: var(--secondary-color);
+  font-size: x-large;
+  font-weight: bold;
+}

@@ -54,7 +54,7 @@ const NFT = ({tokenId}) => {
       </div>
       <div className="nft-card-bottom-wrapper">
         <span className="nft-price-heading">Current Price</span>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between align-items-center">
           {nft_data.price["silver"] !=0 ? 
             <span className="nft-price d-flex align-items-center">
               <BiCoin className="coin-icon coin-silver-icon"/> {nft_data.price["silver"]}

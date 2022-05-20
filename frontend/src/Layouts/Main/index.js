@@ -29,7 +29,7 @@ const Main  = () => {
         setNftIds(await authState.coinContract.methods.getTokenIds().call());
       }
     })();
-  }, [])
+  }, [authState.coinContract])
 
   useEffect(() => {
     (async () => {
@@ -37,7 +37,7 @@ const Main  = () => {
         setOwnerNftIds(await authState.coinContract.methods.getOwnerTokenIds(authState.address).call());
       }
     })();
-  }, [authState.isLoggedin])
+  }, [authState.isLoggedin, authState.coinContract])
 
   return (
     <div className="main-wrapper">
@@ -55,6 +55,22 @@ const Main  = () => {
           <hr/>
         </div>
       : null}
+      <div className='all-nfts'>
+        <span className='all-nfts-heading'>
+          All NFTs
+        </span>
+        <div className="row">
+          {nftIds.map((nftId) => {
+            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId}/></div>
+          })}
+          {nftIds.map((nftId) => {
+            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId}/></div>
+          })}
+          {nftIds.map((nftId) => {
+            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId}/></div>
+          })}
+        </div>
+      </div>
     </div>
   )
 }

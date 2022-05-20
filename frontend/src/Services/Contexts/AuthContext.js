@@ -59,14 +59,14 @@ export const AuthContextProvider = ({children}) => {
   }, [authState.isWeb3Enabled])
 
   useEffect(() => {
-    if(authState.isLoggedin) {
+    if(authState.isLoggedin && authState.coinContract) {
       (async () => {
         const silverCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 1).call());
         const goldCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 0).call());
         authDispatch(authStateSetCoins(silverCoins, goldCoins));
       })();
     }
-  }, [authState.isLoggedin])
+  }, [authState.isLoggedin, authState.coinContract])
 
   const loadCoinContract = async () => {
     const networkId = await window.web3.eth.net.getId();

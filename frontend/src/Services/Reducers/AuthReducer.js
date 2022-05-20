@@ -42,7 +42,6 @@ export const authReducuer = (state, action) => {
         address: null, 
         formattedAddress: null, 
         user: null, 
-        coinContract: null, 
         silverCoins: 0, 
         goldCoins: 0,
       }
