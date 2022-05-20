@@ -53,6 +53,7 @@ const SideNav = () => {
               "https://res.cloudinary.com/dstmsi8qv/image/upload/v1589896899/c1lfv7nmmjva48wia4a7.png"
             }
             width="50px"
+            height="50px"
             className="user-image"
           />
           <span>
@@ -80,7 +81,7 @@ const SideNav = () => {
             </span>
             <br/>
             <span className="balance-title d-flex align-items-center justify-content-center">
-              <BiCoin className="balance-icon balance-silver-icon"/> &nbsp; Silver
+              <BiCoin className="coin-icon coin-silver-icon"/> &nbsp; Silver
             </span>
           </p>
           <p>
@@ -89,7 +90,7 @@ const SideNav = () => {
             </span>
             <br/>
             <span className="balance-title d-flex align-items-center justify-content-center">
-            <BiCoin className="balance-icon balance-gold-icon"/> &nbsp; Gold
+              <BiCoin className="coin-icon coin-gold-icon"/> &nbsp; Gold
             </span>
           </p>
         </div>

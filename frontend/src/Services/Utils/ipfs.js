@@ -9,3 +9,12 @@ export const ipfs_uploader = async (file) => {
     console.log(err.message);
   }
 }
+
+export const ipfs_json_downloader = async (url) => {
+  try{
+    const response = await fetch(url);
+    return response.json();
+  } catch(err){
+    console.log(err.message);
+  }
+}

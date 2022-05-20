@@ -1,0 +1,64 @@
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #e6e6e6;
+  --tertiary-color: #c191d4;
+  --bg1-color: #86C232;
+  --highlighter-color: #daa520;
+}
+
+.nft-card {
+  width: 250px;
+  height: 350px;
+}
+.add-nft-wrapper {
+  width: 250px;
+  height: 350px;
+  background-color: #333333;
+  border-radius: 20px;
+}
+.add-nft-icon {
+  font-size: 100px;
+}
+
+.nft-card-top-wrapper {
+  background-color: #333333;
+  padding: 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.nft-image {
+  border-radius: 20px;
+}
+.nft-about {
+  margin-top: 10px;
+  padding: 0px 10px;
+}
+.nft-heading {
+  color: var(--primary-color);
+  font-size: large;
+  font-weight: bold;
+}
+.nft-owner-address {
+  color: var(--secondary-color);
+  font-size: small;
+}
+.nft-owner-image {
+  border-radius: 100px;
+}
+
+
+.nft-card-bottom-wrapper {
+  background-color: #1a1a1a;
+  padding: 10px 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.nft-price-heading {
+  color: var(--secondary-color);
+  font-size: medium;
+}
+.nft-price {
+  color: var(--primary-color);
+  font-size: large;
+  font-weight: bold;
+}

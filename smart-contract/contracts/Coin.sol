@@ -51,4 +51,17 @@ contract Coin is ERC1155 {
     return address(this).balance;
   }
 
+  function getTokenIds() public view returns(uint256[] memory){
+    return _tokenIds;
+  }
+
+  function getOwnerTokenIds(address _owner) public view returns(uint256[] memory){
+    return _ownerTokens[_owner];
+  }
+
+  function getTokenInfo(uint256 _tokenId) public view returns(address owner, string memory uri){
+    owner = _tokenOwners[_tokenId];
+    uri = _tokenURIs[_tokenId];
+  }
+
 }

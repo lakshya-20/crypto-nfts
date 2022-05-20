@@ -27,10 +27,12 @@ export const AuthContextProvider = ({children}) => {
       window.web3 = new Web3(window.ethereum);
       window.ethereum.enable();
       authDispatch(authStateEnableWeb3());
+      loadCoinContract();
     }
     else if (window.web3){
       window.web3 = new Web3(window.web3.currentProvider);
       authDispatch(authStateEnableWeb3());
+      loadCoinContract();
     }
     else {
       const errMess = "Non-Ethereum browser detected";
@@ -42,17 +44,35 @@ export const AuthContextProvider = ({children}) => {
   }, [])
 
   useEffect(() => {
+    if(authState.isWeb3Enabled){
+      (async () => {
+        const jwt = localStorage.getItem('jwt');
+        const user = JSON.parse(localStorage.getItem('user'));
+        const accounts = await window.web3.eth.getAccounts();
+        const current_account = accounts[0];
+        if(jwt && user) {
+          authDispatch(authStateLogin(current_account, formattedAddress(current_account)));
+          authDispatch(authStateSetUser(user));
+        }
+      })();
+    }
+  }, [authState.isWeb3Enabled])
+
+  useEffect(() => {
     if(authState.isLoggedin) {
       (async () => {
-        const networkId = await window.web3.eth.net.getId();
-        const coinContract = new window.web3.eth.Contract(CoinContract.abi, CoinContract.networks[networkId].address);
-        authDispatch(authStateCoinContract(coinContract));
-        const silverCoins = parseInt(await coinContract.methods.balanceOf(authState.address, 1).call());
-        const goldCoins = parseInt(await coinContract.methods.balanceOf(authState.address, 0).call());
+        const silverCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 1).call());
+        const goldCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 0).call());
         authDispatch(authStateSetCoins(silverCoins, goldCoins));
       })();
     }
   }, [authState.isLoggedin])
+
+  const loadCoinContract = async () => {
+    const networkId = await window.web3.eth.net.getId();
+    const coinContract = new window.web3.eth.Contract(CoinContract.abi, CoinContract.networks[networkId].address);
+    authDispatch(authStateCoinContract(coinContract));
+  }
 
   const login = async () => {
     if(authState.isWeb3Enabled){
@@ -67,6 +87,7 @@ export const AuthContextProvider = ({children}) => {
         );
         response = await axios.post(`http://localhost:5000/api/user/${current_account}/signature`, {signature});
         localStorage.setItem('jwt', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
         authDispatch(authStateLogin(current_account, formattedAddress(current_account)));
         authDispatch(authStateSetUser(response.data.user));
         Toast("success", "Successfully Logged in!")
@@ -80,6 +101,7 @@ export const AuthContextProvider = ({children}) => {
     try{
       authDispatch(authStateLogout());
       localStorage.removeItem('jwt');
+      localStorage.removeItem('user');
       Toast("success", "Successfully Logged out!");
     } catch( error ){
       Toast("error", error.message);

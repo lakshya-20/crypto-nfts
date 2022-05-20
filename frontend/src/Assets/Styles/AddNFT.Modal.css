@@ -1,0 +1,17 @@
+.add-nft-price-wrapper {
+  border: solid 3px gray;
+  border-radius: 10px;
+  padding: 5px;
+  height: 90px;
+}
+
+.add-nft-price-wrapper-selected {
+  border: solid 5px gray;
+}
+
+.add-nft-price-label {
+  font-weight: bold;
+}
+.add-nft-price-input {
+  padding: 0px 20px;
+}

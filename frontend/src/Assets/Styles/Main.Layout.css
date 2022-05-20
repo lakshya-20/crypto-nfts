@@ -6,19 +6,14 @@
   --highlighter-color: #daa520;
 }
 
-.top-nav-wrapper {
+.main-wrapper {
   background-color: black;
   color: var(--primary-color);
   padding: 50px 50px;
 }
-.greeting {
+
+.user-nfts-heading {
   color: var(--primary-color);
   font-size: xx-large;
   font-weight: bold;
-}
-.top-nav-auth-button {
-  background-color: var(--bg1-color);
-  color: var(--primary-color);
-  padding: 0px 10px;
-  border-radius: 20px;
 }

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Services/Contexts/AuthContext";
-import styles from '../../Assets/Styles/TopNav.Layout.css';
-import RegisterUser from "../../Components/Modals/RegisterUser";
+import '../../Assets/Styles/TopNav.Layout.css';
+import RegisterUser from "../../Components/Modals/RegisterUser.Modal";
 
 const TopNav = () => {
   const { authState, login, logout } = useContext(AuthContext);
@@ -18,7 +18,6 @@ const TopNav = () => {
     } else if(hour >= 18 && hour < 24){
       setGreeting("Good Evening");
     }
-    console.log(authState);
   },[])
 
   useEffect(() => {
