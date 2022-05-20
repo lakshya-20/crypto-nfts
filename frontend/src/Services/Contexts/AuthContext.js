@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-import { authStateCoinContract, authStateDisableWeb3, authStateEnableWeb3, authStateFailed, authStateLogin, authStateLogout } from "../Actions/AuthActionCreator";
+import { authStateCoinContract, authStateDisableWeb3, authStateEnableWeb3, authStateFailed, authStateLogin, authStateLogout, authStateSetCoins } from "../Actions/AuthActionCreator";
 import { authReducuer } from "../Reducers/AuthReducer";
 import Web3 from "web3";
 import Toast from "../../Components/Toast";
@@ -45,6 +45,9 @@ export const AuthContextProvider = ({children}) => {
         const networkId = await window.web3.eth.net.getId();
         const coinContract = new window.web3.eth.Contract(CoinContract.abi, CoinContract.networks[networkId].address);
         authDispatch(authStateCoinContract(coinContract));
+        const silverCoins = parseInt(await coinContract.methods.balanceOf(authState.address, 1).call());
+        const goldCoins = parseInt(await coinContract.methods.balanceOf(authState.address, 0).call());
+        authDispatch(authStateSetCoins(silverCoins, goldCoins));
       })();
     }
   }, [authState.isLoggedin])

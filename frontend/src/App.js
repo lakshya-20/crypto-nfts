@@ -9,10 +9,10 @@ function App() {
     <div className='App'>
       <AuthContextProvider>
         <div className = "row d-flex">
-          <div className="col-2 border">
+          <div className="col-3 border">
             <SideNav/>
           </div>
-          <div className="col-10 border">
+          <div className="col-9 border">
             <div className='col-12'>
               <TopNav/>
             </div>

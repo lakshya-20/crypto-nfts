@@ -29,14 +29,12 @@ contract Coin is ERC1155 {
     _tokenURIs[_tokenId] = _uri;
   }
 
-  function buySilver(uint256 _amount) public returns(bool){
-    payable(address(this)).transfer(_amount/100);
+  function buySilver(uint256 _amount) public payable returns(bool){
     _mint(msg.sender, SILVER, _amount, "");
     return true;
   }
 
-  function buyGold(uint256 _amount) public returns(bool){
-    payable(address(this)).transfer(_amount/10);
+  function buyGold(uint256 _amount) public payable returns(bool){
     _mint(msg.sender, GOLD, _amount, "");
     return true;
   }
@@ -45,6 +43,10 @@ contract Coin is ERC1155 {
     _safeTransferFrom(_from, _to, _tokenId, 1, "");
     _safeTransferFrom(_to, _from, _coinId, _amount, "");
     return true;
+  }
+
+  function contractBalance() public view returns(uint256){
+    return address(this).balance;
   }
 
 }
