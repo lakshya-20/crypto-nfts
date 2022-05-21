@@ -77,3 +77,22 @@
   font-size: large;
   font-weight: bold;
 }
+
+
+
+/**********Loading CSS**********/
+.nft-card-loading-wrapper {
+  background: #232526;
+  background: linear-gradient(110deg, #232526 8%, #414345 18%, #232526 33%);
+  border-radius: 20px;
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}

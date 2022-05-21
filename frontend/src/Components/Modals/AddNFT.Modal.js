@@ -68,22 +68,22 @@ const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
           <Input
             type="file"
             onChange={async (e) => {
-              setNftData({
-                ...nftData,
+              setNftData(prevState => ({
+                ...prevState,
                 image: {
                   isLoading: true,
                 }
-              })
+              }));
               const file = e.target.files[0];
               try{
                 const img_url = await ipfs_uploader(file);
-                setNftData({
-                  ...nftData,
+                setNftData(prevState => ({
+                  ...prevState,
                   image: {
                     url: img_url,
                     isLoading: false,
                   }
-                })
+                }))
               } catch (err){
                 Toast("error", "Error uploading image");
               }
@@ -95,10 +95,10 @@ const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
           <InputGroupText>Name</InputGroupText>
           <Input
             placeholder='NFT name'
-            onChange={(e) => setNftData({
-              ...nftData,
+            onChange={(e) => setNftData(prevState => ({
+              ...prevState,
               name: e.target.value
-            })}
+            }))}
           />
         </InputGroup>
         <br/>
@@ -106,10 +106,10 @@ const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
           <InputGroupText>Description</InputGroupText>
           <Input
             placeholder='NFT Description...'
-            onChange={(e) => setNftData({
-              ...nftData,
+            onChange={(e) => setNftData(prevState => ({
+              ...prevState,
               description: e.target.value
-            })}
+            }))}
           />
         </InputGroup>
         <br/>
@@ -120,8 +120,8 @@ const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
           >
             <span
               className='add-nft-price-label'
-              onClick={() => setNftData({
-                ...nftData,
+              onClick={() => setNftData(prevState => ({
+                ...prevState,
                 price: {
                   ...nftData.price,
                   silver: {
@@ -129,7 +129,7 @@ const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
                     amount: 0,
                   }
                 }
-              })}
+              }))}
               type="button"
             >
               <BiCoin className="coin-icon coin-silver-icon"/> &nbsp; Silver
@@ -139,8 +139,8 @@ const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
               <InputGroup className='add-nft-price-input'>
                 <Input
                   placeholder='Price'
-                  onChange={(e) => setNftData({
-                    ...nftData,
+                  onChange={(e) => setNftData(prevState => ({
+                    ...prevState,
                     price: {
                       ...nftData.price,
                       silver: {
@@ -148,7 +148,7 @@ const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
                         amount: e.target.value
                       }
                     }
-                  })}
+                  }))}
                 />
               </InputGroup>
             : null
