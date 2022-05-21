@@ -74,13 +74,7 @@ const Main  = () => {
         </span>
         <div className="row">
           {nftIds.map((nftId) => {
-            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId} loadNFTs={loadNFTs}/></div>
-          })}
-          {nftIds.map((nftId) => {
-            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId} loadNFTs={loadNFTs}/></div>
-          })}
-          {nftIds.map((nftId) => {
-            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId} loadNFTs={loadNFTs}/></div>
+            return <div className='col-3 my-2' key={nftId}><NFT tokenId={nftId} loadNFTs={loadNFTs}/></div>
           })}
         </div>
       </div>
