@@ -2,7 +2,7 @@ import '../../Assets/Styles/NFT.Card.css';
 import {MdOutlineLibraryAdd} from 'react-icons/md';
 import AddNFTModal from '../Modals/AddNFT.Modal';
 import { useState } from 'react';
-const AddNFT = () => {
+const AddNFT = ({loadNFTs}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggelModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -14,7 +14,7 @@ const AddNFT = () => {
       onClick={toggelModal}
     >
       <MdOutlineLibraryAdd className='add-nft-icon'/>
-      <AddNFTModal isModalOpen = {isModalOpen} toggleModal={toggelModal}/>
+      <AddNFTModal isModalOpen = {isModalOpen} toggleModal={toggelModal} loadNFTs={loadNFTs}/>
     </div>
   )
 }

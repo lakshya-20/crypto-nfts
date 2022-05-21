@@ -1,0 +1,28 @@
+.coin-wrapper {
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+.coin-wrapper-disabled {
+  opacity: 0.5;
+}
+.coin-wrapper-selected {
+  background-color: #bfbfbf;
+}
+.coin-label {
+  border-bottom: solid 2px gray;
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.coin-amount {
+  border-bottom: solid 2px gray;
+  font-size: x-large;
+  font-weight: bold;
+}
+.coin-balance-status {
+  font-size: small;
+  font-weight: bold;
+}

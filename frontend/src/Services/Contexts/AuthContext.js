@@ -61,9 +61,7 @@ export const AuthContextProvider = ({children}) => {
   useEffect(() => {
     if(authState.isLoggedin && authState.coinContract) {
       (async () => {
-        const silverCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 1).call());
-        const goldCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 0).call());
-        authDispatch(authStateSetCoins(silverCoins, goldCoins));
+        await loadUserCoins();
       })();
     }
   }, [authState.isLoggedin, authState.coinContract])
@@ -74,6 +72,11 @@ export const AuthContextProvider = ({children}) => {
     authDispatch(authStateCoinContract(coinContract));
   }
 
+  const loadUserCoins = async () => {
+    const silverCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 1).call());
+    const goldCoins = parseInt(await authState.coinContract.methods.balanceOf(authState.address, 0).call());
+    authDispatch(authStateSetCoins(silverCoins, goldCoins));
+  }
   const login = async () => {
     if(authState.isWeb3Enabled){
       try{
@@ -121,7 +124,7 @@ export const AuthContextProvider = ({children}) => {
   }
 
   return (
-    <AuthContext.Provider value={{authState, authDispatch, login, logout, register}}>
+    <AuthContext.Provider value={{authState, authDispatch, login, logout, register, loadUserCoins}}>
       {children}
     </AuthContext.Provider>
   )

@@ -8,7 +8,7 @@ import { BiCoin } from 'react-icons/bi';
 import { AuthContext } from '../../Services/Contexts/AuthContext';
 import { generate_nft_id } from '../../Services/Utils/nft';
 
-const AddNFTModal = ({isModalOpen, toggleModal}) => {
+const AddNFTModal = ({isModalOpen, toggleModal, loadNFTs}) => {
   const { authState } = useContext(AuthContext);
   const [nftData, setNftData] = useState({
     name: "",
@@ -40,13 +40,13 @@ const AddNFTModal = ({isModalOpen, toggleModal}) => {
           "silver": nftData.price.silver.enabled ? nftData.price.silver.amount : 0,
         }
       }
-      console.log(data);
       const metadata_uri = await ipfs_uploader(JSON.stringify(data));
       const response = await authState.coinContract.methods.addToken(generate_nft_id(), metadata_uri).send({from: authState.address});
       toggleModal();
+      await loadNFTs();
       Toast("success", "NFT would be listed soon");
     } catch(err){
-      console.log(err);
+      Toast("error", "Something went wrong!");
     }
   }
 

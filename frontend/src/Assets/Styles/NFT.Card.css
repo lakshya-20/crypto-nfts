@@ -26,8 +26,23 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
+.nft-buy-button-wrapper {
+  display: none;
+  width: 230px;
+  height: 200px;
+}
+.nft-buy-button {
+  font-size: 100px;
+  height: 100%;
+}
 .nft-image {
   border-radius: 20px;
+}
+.non-owner-nft:hover .nft-buy-button-wrapper {
+  display: inline-block;
+}
+.non-owner-nft:hover .nft-image {
+  display: none;
 }
 .nft-about {
   margin-top: 10px;

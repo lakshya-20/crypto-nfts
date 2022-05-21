@@ -43,6 +43,20 @@ contract Coin is ERC1155 {
 
   function buyToken(address _from, address _to, uint256 _tokenId, uint256 _coinId, uint256 _amount) public returns(bool){
     _safeTransferFrom(_from, _to, _tokenId, 1, "");
+    _tokenOwners[_tokenId] = _to;
+    _ownerTokens[_to].push(_tokenId);
+    
+    //Removing token from previous owner owned tokenIds array
+    uint i = 0;
+    while (_ownerTokens[_from][i] != _tokenId) {
+        i++;
+    }
+    while (i < _ownerTokens[_from].length - 1) {
+      _ownerTokens[_from][i] = _ownerTokens[_from][i + 1];
+      i++;
+    }
+    _ownerTokens[_from].pop();
+
     _safeTransferFrom(_to, _from, _coinId, _amount, "");
     return true;
   }

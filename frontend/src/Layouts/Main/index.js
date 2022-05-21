@@ -25,19 +25,32 @@ const Main  = () => {
 
   useEffect(() => {
     (async () => {
-      if(authState.coinContract) {
-        setNftIds(await authState.coinContract.methods.getTokenIds().call());
-      }
+      await loadAllNFTs();
     })();
   }, [authState.coinContract])
 
   useEffect(() => {
     (async () => {
-      if(authState.isLoggedin && authState.coinContract) {
-        setOwnerNftIds(await authState.coinContract.methods.getOwnerTokenIds(authState.address).call());
-      }
+      await loadOwnerNFTs();
     })();
   }, [authState.isLoggedin, authState.coinContract])
+
+  const loadAllNFTs = async () => {
+    if(authState.coinContract) {
+      setNftIds(await authState.coinContract.methods.getTokenIds().call());
+    }
+  }
+  const loadOwnerNFTs = async () => {
+    if(authState.isLoggedin && authState.coinContract) {
+      setOwnerNftIds(await authState.coinContract.methods.getOwnerTokenIds(authState.address).call());
+    }
+  }
+  const loadNFTs = async () => {
+    setNftIds([]);
+    setOwnerNftIds([]);
+    await loadAllNFTs();
+    await loadOwnerNFTs();
+  }
 
   return (
     <div className="main-wrapper">
@@ -47,9 +60,9 @@ const Main  = () => {
             Your NFTs
           </span>
           <Carousel responsive={responsive}>
-            <AddNFT/>
+            <AddNFT loadNFTs={loadNFTs}/>
             {ownerNftIds.map((nftId) => {
-              return <NFT key={nftId} tokenId={nftId}/>
+              return <NFT key={nftId} tokenId={nftId} loadNFTs={loadNFTs}/>
             })}
           </Carousel>
           <hr/>
@@ -61,13 +74,13 @@ const Main  = () => {
         </span>
         <div className="row">
           {nftIds.map((nftId) => {
-            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId}/></div>
+            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId} loadNFTs={loadNFTs}/></div>
           })}
           {nftIds.map((nftId) => {
-            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId}/></div>
+            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId} loadNFTs={loadNFTs}/></div>
           })}
           {nftIds.map((nftId) => {
-            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId}/></div>
+            return <div className='col-3 my-2'><NFT key={nftId} tokenId={nftId} loadNFTs={loadNFTs}/></div>
           })}
         </div>
       </div>

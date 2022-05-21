@@ -5,6 +5,7 @@ import '../../Assets/Styles/SideNav.Layout.css';
 import { BiCoin } from "react-icons/bi";
 import { BsStars } from "react-icons/bs"
 import {InputGroup, Input, InputGroupText} from 'reactstrap';
+import Toast from "../../Components/Toast";
 
 const SideNav = () => {
   const {authState, authDispatch} = useContext(AuthContext);
@@ -20,7 +21,7 @@ const SideNav = () => {
         authDispatch(authStateIncreaseSilverCoin(amount));
         document.getElementById("silver_coin_input").value = "";
       } catch(err){
-        console.log(err.message);
+        Toast("error", "Something went wrong!");
       }
     }
   }
@@ -36,7 +37,7 @@ const SideNav = () => {
         authDispatch(authStateIncreaseGoldCoin(amount));
         document.getElementById("gold_coin_input").value = "";
       } catch(err){
-        console.log(err.message);
+        Toast("error", "Something went wrong!");
       }
     }
   }

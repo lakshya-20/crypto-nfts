@@ -5,8 +5,10 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Services/Contexts/AuthContext";
 import { ipfs_json_downloader } from "../../Services/Utils/ipfs";
 import axios from "axios";
+import {FcCollect} from 'react-icons/fc';
+import BuyNFTModal from "../Modals/BuyNFT.Modal";
 
-const NFT = ({tokenId}) => {
+const NFT = ({tokenId, loadNFTs}) => {
   const { authState } = useContext(AuthContext);
   const [nft_data, set_nft_data] = useState({
     name: "Alt NFT",
@@ -22,6 +24,9 @@ const NFT = ({tokenId}) => {
       img: "https://res.cloudinary.com/dstmsi8qv/image/upload/v1640364233/b9oidx3ztk3lhmkryveo.png"
     }
   });
+  const [isBuyNFTModalOpen, setIsBuyNFTModalOpen] = useState(false);
+  const toggleIsBuyNFTModalOpen = () => setIsBuyNFTModalOpen(!isBuyNFTModalOpen);
+
   useEffect(() => {
     (async () => {
       if(authState.coinContract){
@@ -33,6 +38,7 @@ const NFT = ({tokenId}) => {
           name: response.data.user.name,
           img: response.data.user.img
         }
+        nft_data["tokenId"] = tokenId;
         set_nft_data(nft_data);
       }
     })();
@@ -41,7 +47,23 @@ const NFT = ({tokenId}) => {
   return (
     <div className="nft-card">
       <div className="nft-card-top-wrapper">
-        <img src={nft_data.image} width="100%" height="200px" className="nft-image"/>
+        <div className={`nft-card-image-wrapper ${nft_data.owner.address != authState.address? "non-owner-nft": null}`}>
+          <div className="nft-buy-button-wrapper">
+            <div className="nft-buy-button d-flex justify-content-center align-items-center"
+              onClick={toggleIsBuyNFTModalOpen}
+              type="button"
+            >
+              <FcCollect/>
+              <BuyNFTModal 
+                nft_data={nft_data} 
+                isModalOpen={isBuyNFTModalOpen} 
+                toggleModal={toggleIsBuyNFTModalOpen}
+                loadNFTs={loadNFTs}
+              />
+            </div>
+          </div>
+          <img src={nft_data.image} width="230px" height="200px" className="nft-image"/>
+        </div>
         <div className="nft-about">
           <div className="d-flex justify-content-between align-items-center">
             <div className="row">
