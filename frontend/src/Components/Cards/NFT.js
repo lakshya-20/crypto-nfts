@@ -19,7 +19,7 @@ const NFT = ({tokenId, loadNFTs}) => {
       if(authState.coinContract){
         const tokenInfo = await authState.coinContract.methods.getTokenInfo(tokenId).call();
         const nft_data = await ipfs_json_downloader(tokenInfo.uri);
-        const response = await axios.get(`http://localhost:5000/api/user/${tokenInfo.owner}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/${tokenInfo.owner}`);
         nft_data["owner"] = {
           address: tokenInfo.owner,
           name: response.data.user.name,

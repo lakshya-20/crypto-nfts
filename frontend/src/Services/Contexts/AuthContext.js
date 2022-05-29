@@ -112,7 +112,7 @@ export const AuthContextProvider = ({children}) => {
 
   const register = async (name, img) => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/user/${authState.address}/register`, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/user/${authState.address}/register`, {
         name,
         img
       });
