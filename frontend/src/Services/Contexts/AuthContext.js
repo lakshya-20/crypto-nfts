@@ -35,10 +35,9 @@ export const AuthContextProvider = ({children}) => {
       loadCoinContract();
     }
     else {
-      const errMess = "Non-Ethereum browser detected";
+      const errMess = "Non-Ethereum browser detected, try installing Metamask";
       authDispatch(authStateFailed(errMess));
       authDispatch(authStateDisableWeb3());
-      Toast("error", errMess);
       throw new Error(errMess);
     }
   }, [])
@@ -82,13 +81,13 @@ export const AuthContextProvider = ({children}) => {
       try{
         const accounts = await window.web3.eth.getAccounts();
         const current_account = accounts[0];
-        let response = await axios.get(`http://localhost:5000/api/user/${current_account}/nonce`);
+        let response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/${current_account}/nonce`);
         const nonce = response.data.nonce;
         const signature = await window.web3.eth.personal.sign(
-          `I am signing my one-time nonce: ${nonce}`, 
+          `I am signing my one-time nonce: ${nonce}`,
           current_account
         );
-        response = await axios.post(`http://localhost:5000/api/user/${current_account}/signature`, {signature});
+        response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/user/${current_account}/signature`, {signature});
         localStorage.setItem('jwt', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         authDispatch(authStateLogin(current_account, formattedAddress(current_account)));

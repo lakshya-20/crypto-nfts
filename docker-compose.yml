@@ -1,6 +1,30 @@
 version: "3.3"
 services:
 
+  backend:
+    container_name: cryptonfts_backend
+    build: ./backend
+    restart: always
+    env_file: ./.env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      - mongodb
+
+  frontend:
+    container_name: cryptonfts_frontend
+    build: ./frontend
+    restart: always
+    env_file: ./.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      - backend
+
   mongodb:
     container_name: cryptonfts_mongodb
     image: mongo

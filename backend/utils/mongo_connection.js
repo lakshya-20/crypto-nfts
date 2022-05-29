@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 module.exports = async () => {
   try{
-    await mongoose.connect(`mongodb://admin:password@localhost:27017/cryptonfts?authSource=admin`,{
+    await mongoose.connect(`${process.env.MONGO_URL}`,{
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
